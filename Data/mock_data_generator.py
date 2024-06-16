@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import random
 from faker import Faker
+import os
 
 # Initialize Faker and random seed
 fake = Faker()
@@ -51,7 +52,6 @@ for i in range(NUM_RECORDS):
     sales_data.append([transaction_id, customer_id, product_id, date, quantity, price, discount, total_amount])
 
 sales_df = pd.DataFrame(sales_data, columns=["TransactionID", "CustomerID", "ProductID", "TransactionDate", "Quantity", "Price", "Discount", "TotalAmount"])
-sales_df.to_csv('historical_sales_data.csv', index=False)
 
 # Generate Customer Data
 customer_data = []
@@ -67,7 +67,6 @@ for i in range(NUM_CUSTOMERS):
     customer_data.append([customer_id, name, email, age, gender, location, purchase_history])
 
 customer_df = pd.DataFrame(customer_data, columns=["CustomerID", "Name", "Email", "Age", "Gender", "Location", "PurchaseHistory"])
-customer_df.to_csv('customer_data.csv', index=False)
 
 # Generate Product Data
 product_data = []
@@ -83,7 +82,6 @@ for i in range(NUM_PRODUCTS):
     product_data.append([product_id, product_name, category, brand, stock_level, price, attributes])
 
 product_df = pd.DataFrame(product_data, columns=["ProductID", "ProductName", "Category", "Brand", "StockLevel", "Price", "Attributes"])
-product_df.to_csv('product_data.csv', index=False)
 
 # Generate Competitor Pricing Data
 competitor_pricing_data = []
@@ -96,7 +94,6 @@ for i in range(NUM_RECORDS):
     competitor_pricing_data.append([competitor_name, product_id, competitor_price, date_checked])
 
 competitor_pricing_df = pd.DataFrame(competitor_pricing_data, columns=["CompetitorName", "ProductID", "CompetitorPrice", "DateChecked"])
-competitor_pricing_df.to_csv('competitor_pricing_data.csv', index=False)
 
 # Generate Seasonal Trends Data
 seasonal_trends_data = []
@@ -108,20 +105,16 @@ for date in dates:
     seasonal_trends_data.append([date, season, holiday, sales_trend])
 
 seasonal_trends_df = pd.DataFrame(seasonal_trends_data, columns=["Date", "Season", "Holiday", "SalesTrend"])
-seasonal_trends_df.to_csv('seasonal_trends_data.csv', index=False)
 
-# Display sample rows for verification
-print("Historical Sales Data:")
-print(sales_df.head(), "\n")
+# Ensure the Data directory exists
+data_dir = os.path.join(os.path.dirname(__file__), 'Data')
+os.makedirs(data_dir, exist_ok=True)
 
-print("Customer Data:")
-print(customer_df.head(), "\n")
+# Save to CSV
+sales_df.to_csv(os.path.join(data_dir, 'historical_sales_data.csv'), index=False)
+customer_df.to_csv(os.path.join(data_dir, 'customer_data.csv'), index=False)
+product_df.to_csv(os.path.join(data_dir, 'product_data.csv'), index=False)
+competitor_pricing_df.to_csv(os.path.join(data_dir, 'competitor_pricing_data.csv'), index=False)
+seasonal_trends_df.to_csv(os.path.join(data_dir, 'seasonal_trends_data.csv'), index=False)
 
-print("Product Data:")
-print(product_df.head(), "\n")
-
-print("Competitor Pricing Data:")
-print(competitor_pricing_df.head(), "\n")
-
-print("Seasonal Trends Data:")
-print(seasonal_trends_df.head(), "\n")
+print("Mock data generated and saved in 'Data' folder.")
