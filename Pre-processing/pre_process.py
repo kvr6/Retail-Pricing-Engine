@@ -24,8 +24,9 @@ seasonal_trends_df = pd.read_csv(os.path.join(data_folder, 'seasonal_trends_data
 # Convert TransactionDate to datetime
 sales_df['TransactionDate'] = pd.to_datetime(sales_df['TransactionDate'])
 
-# Extract date part from TransactionDate
+# Extract date part from TransactionDate and convert both to string
 sales_df['TransactionDate_Date'] = sales_df['TransactionDate'].dt.date.astype(str)
+seasonal_trends_df['Date'] = seasonal_trends_df['Date'].astype(str)
 
 # Merge DataFrames
 data = sales_df.merge(customer_df, on='CustomerID', how='left')
@@ -104,3 +105,5 @@ X_train.to_csv(os.path.join(script_dir, 'X_train.csv'), index=False)
 X_test.to_csv(os.path.join(script_dir, 'X_test.csv'), index=False)
 y_train.to_csv(os.path.join(script_dir, 'y_train.csv'), index=False)
 y_test.to_csv(os.path.join(script_dir, 'y_test.csv'), index=False)
+
+print("Preprocessing complete. Processed data saved.")
