@@ -162,3 +162,5 @@ cython_debug/
 #.idea/
 /jupyter_env/bin
 *.cfg
+*.joblib
+*.csv
