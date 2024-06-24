@@ -141,3 +141,37 @@ This project uses mock data for retail pricing analysis. Follow these steps to s
 - The generated CSV files are not tracked by Git. If you need the data, run the generation script.
 - You can modify the `generate_mock_data.py` script to change the number of records generated.
 
+## Data Preprocessing
+
+After generating the mock data, the next step is to preprocess it for analysis. Follow these steps:
+
+1. **Run the Preprocessing Script**
+   Execute the following command:
+   ```
+   python src/data/preprocess_data.py
+   ```
+   This script performs several preprocessing steps on the raw data.
+
+2. **Preprocessing Steps**
+   The script applies the following transformations:
+   - Data Cleaning:
+     - Handles missing values by filling with median (for numeric data) or mode (for categorical data)
+     - Handles outliers using a standard deviation approach
+   - Data Normalization and Standardization:
+     - Applies standardization to numeric columns
+   - Time Series Alignment:
+     - Ensures all time-based data covers the same period
+   - Data Anonymization:
+     - Replaces personal information (names, emails, cities) with fake data for privacy compliance
+
+3. **Verify Processed Data**
+   Check that the processed CSV files have been created in the `data/processed/` directory. You should see the following files:
+   - `sales_data_processed.csv`
+   - `product_data_processed.csv`
+   - `customer_data_processed.csv`
+   - `store_data_processed.csv`
+   - `external_data_processed.csv`
+
+### Note
+The preprocessing script modifies the mock data and should not be used for actual retail analysis. The processed CSV files are not tracked by Git. If you need the processed data, run both the data generation and preprocessing scripts.
+
