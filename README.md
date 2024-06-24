@@ -98,3 +98,46 @@ graph TD
 - Interpretable model decisions for business insights
 - Comprehensive A/B testing framework for strategy validation
 - Robust monitoring and automated model retraining
+
+## Data Generation
+
+This project uses mock data for retail pricing analysis. Follow these steps to set up the project and generate the necessary data:
+
+1. **Clone the Repository**
+   ```
+   git clone https://github.com/yourusername/retail-pricing-engine.git
+   cd retail-pricing-engine
+   ```
+
+2. **Set Up Python Environment**
+   It's recommended to use a virtual environment:
+   ```
+   python -m venv venv
+   source venv/bin/activate  # On Windows, use `venv\Scripts\activate`
+   ```
+
+3. **Install Dependencies**
+   ```
+   pip install -r requirements.txt
+   ```
+
+4. **Generate Mock Data**
+   Run the data generation script:
+   ```
+   python src/data/generate_mock_data.py
+   ```
+   This will create the following CSV files in the `data/raw/` directory:
+   - `sales_data.csv`: 1 million records of sales transactions
+   - `product_data.csv`: 1,000 product records
+   - `customer_data.csv`: 100,000 customer records
+   - `store_data.csv`: 25 store records
+   - `external_data.csv`: 1 million records of external market data
+
+5. **Verify Data Generation**
+   Check that the CSV files have been created in the `data/raw/` directory.
+
+### Notes
+- The data generation script creates mock data and should not be used for actual retail analysis.
+- The generated CSV files are not tracked by Git. If you need the data, run the generation script.
+- You can modify the `generate_mock_data.py` script to change the number of records generated.
+
