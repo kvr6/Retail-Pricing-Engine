@@ -175,3 +175,38 @@ After generating the mock data, the next step is to preprocess it for analysis. 
 ### Note
 The preprocessing script modifies the mock data and should not be used for actual retail analysis. The processed CSV files are not tracked by Git. If you need the processed data, run both the data generation and preprocessing scripts.
 
+## Feature Engineering
+
+After preprocessing the data, we perform feature engineering to create new features that may be useful for our pricing model. Follow these steps:
+
+1. **Run the Feature Engineering Script**
+   Execute the following command:
+   ```
+   python src/features/feature_engineering.py
+   ```
+   This script creates new features based on the preprocessed data.
+
+2. **Feature Engineering Steps**
+   The script performs the following feature engineering tasks:
+   - Time-based Features:
+     - Day of week, month, quarter
+     - Weekend indicator
+   - Lag Features:
+     - Creates lagged sales features (1 day, 7 days, 30 days)
+   - Price Elasticity:
+     - Calculates price elasticity based on price and demand changes
+   - Customer Segmentation:
+     - Uses K-means clustering to create customer segments
+   - Product Features:
+     - One-hot encodes product categories
+     - Creates price range categories
+
+3. **Verify Feature-Engineered Data**
+   Check that the feature-engineered CSV files have been created in the `data/feature_engineered/` directory. You should see the following files:
+   - `sales_features.csv`
+   - `customer_features.csv`
+   - `product_features.csv`
+
+### Note
+The feature engineering script creates new features based on the preprocessed mock data. These features are designed to be useful for a retail pricing model but should not be used for actual retail analysis without further validation.
+
