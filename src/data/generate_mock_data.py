@@ -29,6 +29,12 @@ def generate_product_data(num_records=1000, output_dir='data/raw'):
     filename = os.path.join(output_dir, "product_data.csv")
     os.makedirs(output_dir, exist_ok=True)
     categories = ['Electronics', 'Clothing', 'Home & Garden', 'Sports', 'Books', 'Toys', 'Food', 'Beauty']
+    
+    def generate_product_name():
+        adjectives = ['Premium', 'Deluxe', 'Essential', 'Compact', 'Eco-friendly', 'Smart', 'Professional', 'Luxury']
+        nouns = ['Widget', 'Gadget', 'Tool', 'System', 'Solution', 'Kit', 'Pack', 'Set']
+        return f"{random.choice(adjectives)} {random.choice(nouns)}"
+    
     with open(filename, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(['product_id', 'name', 'category', 'base_price', 'cost'])
@@ -37,7 +43,7 @@ def generate_product_data(num_records=1000, output_dir='data/raw'):
             base_price = round(random.uniform(10.0, 1000.0), 2)
             writer.writerow([
                 i + 1,
-                fake.product_name(),
+                generate_product_name(),
                 random.choice(categories),
                 base_price,
                 round(base_price * random.uniform(0.4, 0.7), 2)  # Cost is 40-70% of base price
