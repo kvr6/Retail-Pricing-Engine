@@ -9,14 +9,6 @@ def load_processed_data(data_dir='data/processed'):
         data[file.stem.replace('_processed', '')] = pd.read_csv(file)
     return data
 
-def create_time_features(df):
-    df['date'] = pd.to_datetime(df['date'])
-    df['day_of_week'] = df['date'].dt.dayofweek
-    df['month'] = df['date'].dt.month
-    df['quarter'] = df['date'].dt.quarter
-    df['is_weekend'] = df['day_of_week'].isin([5, 6]).astype(int)
-    return df
-
 def create_lag_features(df, lag_periods=[1, 7, 30]):
     for lag in lag_periods:
         df[f'sales_lag_{lag}'] = df.groupby('product_id')['total_amount'].shift(lag)
@@ -27,6 +19,14 @@ def calculate_price_elasticity(df):
     df['demand_change'] = df.groupby('product_id')['quantity'].pct_change()
     df['price_elasticity'] = df['demand_change'] / df['price_change']
     df['price_elasticity'] = df['price_elasticity'].replace([np.inf, -np.inf], np.nan)
+    return df
+
+def create_time_features(df):
+    df['date'] = pd.to_datetime(df['date'])
+    df['day_of_week'] = df['date'].dt.dayofweek
+    df['month'] = df['date'].dt.month
+    df['quarter'] = df['date'].dt.quarter
+    df['is_weekend'] = df['day_of_week'].isin([5, 6]).astype(int)
     return df
 
 def create_customer_segments(customer_df, n_clusters=4):
